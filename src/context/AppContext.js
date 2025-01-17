@@ -3,7 +3,7 @@ import { baseUrl } from "../baseUrl";
 
 export const AppContext = createContext();
 
-function AppContextProvider({ children }) {
+export default function AppContextProvider({ children }) {
     const [loading, setLoading] = useState(false);
     const [post, setPost] = useState([]);
     const [page, setPage] = useState(1);
@@ -22,12 +22,17 @@ function AppContextProvider({ children }) {
             setTotalPages(data.totalPages);
         }
         catch (error) {
-            console.log({ "Error in fetching"});
+            console.log("Error in fetching");
             setPage(1);
             setPost([]);
             setTotalPages(null);
         }
         setLoading(false);
+    }
+
+    function handlePageChange(page) {
+        setPage(page);
+        fetchBlogPosts(page);
     }
 
     const value = {
@@ -38,7 +43,10 @@ function AppContextProvider({ children }) {
         page,
         setPage,
         totalPages,
-        setTotalPages
+        setTotalPages,
+        handlePageChange,
+        fetchBlogPosts
+
     };
     return <AppContext.Provider value={value} >
         {children}
