@@ -7,13 +7,13 @@ const Blogs = () => {
   const { loading, posts } = useContext(AppContext);
  
   return (
-    <div>
+    <div className="flex flex-col gap-y-10 my-4">
       {
         loading ? <Spinner /> : (
           !posts?.length ?
             (
-              <div>
-                <p>No Post Found</p>
+              <div className="min-h-[80vh] w-full flex justify-center items-center">
+                <p className="text-center font-bold text-3xl">No Post Found</p>
               </div>
             ) :
             (
