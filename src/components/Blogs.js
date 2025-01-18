@@ -27,7 +27,7 @@ const Blogs = () => {
                   <p>{post.content}</p>
                   <div>
                     {
-                    post.tag.map((tag, ind)=>{
+                    post.tag?.map((tag, ind)=>{
                      return <span key={ind}>{`#${tag}`}</span>
                     })
                     }
