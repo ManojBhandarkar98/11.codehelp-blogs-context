@@ -5,10 +5,10 @@ export const AppContext = createContext();
 
 export default function AppContextProvider({ children }) {
     const [loading, setLoading] = useState(false);
-    const [post, setPost] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(null);
-
+    
     async function fetchBlogPosts(page = 1) {
 
         setLoading(true);
@@ -16,15 +16,14 @@ export default function AppContextProvider({ children }) {
         try {
             const result = await fetch(url);
             const data = await result.json();
-            console.log(data);
             setPage(data.page);
-            setPost(data.posts);
+            setPosts(data.posts);
             setTotalPages(data.totalPages);
         }
         catch (error) {
             console.log("Error in fetching");
             setPage(1);
-            setPost([]);
+            setPosts([]);
             setTotalPages(null);
         }
         setLoading(false);
@@ -36,8 +35,8 @@ export default function AppContextProvider({ children }) {
     }
 
     const value = {
-        post,
-        setPost,
+        posts,
+        setPosts,
         loading,
         setLoading,
         page,
