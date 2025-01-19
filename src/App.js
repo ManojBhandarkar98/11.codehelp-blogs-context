@@ -4,6 +4,7 @@ import { AppContext } from "./context/AppContext";
 import Header from "./components/Header";
 import Blogs from "./components/Blogs";
 import Pagination from "./components/Pagination";
+import { Route, Routes } from "react-router-dom";
 export default function App() {
   const { fetchBlogPosts } = useContext(AppContext);
 
@@ -14,12 +15,11 @@ export default function App() {
   }, []);
 
   return (
-    <>
-      <Header />
-      <div className="my-[100px]">
-        <Blogs />
-        <Pagination />
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />}> </Route>
+      <Route path="/blog/:blogId" element={<BlogPage />}> </Route>
+      <Route path="/tags/:tag" element={<TagPage />}> </Route>
+      <Route path="/categories/:category " element={<CategoryPage />}> </Route>
+    </Routes>
   );
 }
