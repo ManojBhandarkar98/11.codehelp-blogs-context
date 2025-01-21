@@ -6,6 +6,7 @@ import BlogDetails from './BlogDetails';
 import Header from './Header';
 
 const BlogPage = () => {
+    const newBaseUrl = "https://codehelp-apis.vercel.app/api/";
     const [blog, setBlog] = useState(null);
     const [relatedBlogs, setRelatedBlogs] = useState([]);
     const location = useLocation();
@@ -16,7 +17,7 @@ const BlogPage = () => {
 
     async function fetchRelatedBlogs() {
         setLoading(true);
-        let url = `${baseUrl}?blogId=${blogId}`;
+        let url = `${newBaseUrl}get-blog?blogId=${blogId}`;
         try {
             const res = await fetch(url);
             const data = await res.json();

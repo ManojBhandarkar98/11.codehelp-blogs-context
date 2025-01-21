@@ -42,8 +42,6 @@ export default function AppContextProvider({ children }) {
   const handlePageChange = (page) => {
     navigate({search:`?page=${page}`})
     setPage(page);
-    console.log(page);
-    fetchBlogPosts(page);
   };
 
   const value = {
