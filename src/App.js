@@ -5,6 +5,10 @@ import Header from "./components/Header";
 import Blogs from "./components/Blogs";
 import Pagination from "./components/Pagination";
 import { Route, Routes, useLocation, useSearchParams } from "react-router-dom";
+import HomePage from "./components/HomePage";
+import BlogPage from "./components/BlogPage";
+import TagPage from "./components/TagPage";
+import CategoryPage from "./components/CategoryPage";
 export default function App() {
   const { fetchBlogPosts } = useContext(AppContext);
 
@@ -12,16 +16,16 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
-    const page = searchParams.get("page") ?? 1;
+    const page = searchParams.get("page");
     if (location.pathname.includes("tags")) {
-      const tag = location.pathname.split("/").at(-1).replaceAll("-"," ");
-      fetchBlogPosts(Number(page),tag);
+      const tag = location.pathname.split("/").at(-1).replaceAll("-", " ");
+      fetchBlogPosts(Number(page), tag);
     }
-    else if(location.pathname.includes("categories")) {
-      const category = location.pathname.split("/").at(-1).replaceAll("-"," ");
-      fetchBlogPosts(Number(page),null,category);
+    else if (location.pathname.includes("categories")) {
+      const category = location.pathname.split("/").at(-1).replaceAll("-", " ");
+      fetchBlogPosts(Number(page), null, category);
     }
-    else{
+    else {
       fetchBlogPosts(Number(page));
     }
 
@@ -29,10 +33,11 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />}> </Route>
+      <Route path="/" element={<HomePage />}> </Route>
       <Route path="/blog/:blogId" element={<BlogPage />}> </Route>
       <Route path="/tags/:tag" element={<TagPage />}> </Route>
-      <Route path="/categories/:category " element={<CategoryPage />}> </Route>
+      <Route path="/categories/:category" element={<CategoryPage />}> </Route>
+      <Route path="*" element={<div> Not Found or You do not have permission.</div>} />
     </Routes>
   );
 }
